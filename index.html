@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Reply Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Email Reply Generator</h1>
+        <p>Tempel email yang Anda terima di bawah ini, pilih tujuan balasan, dan biarkan kami membuat draf yang profesional untuk Anda.</p>
+
+        <textarea id="original-email" placeholder="Tempel email di sini..."></textarea>
+
+        <div class="options">
+            <select id="reply-tone">
+                <option value="professional">Profesional</option>
+                <option value="friendly">Ramah</option>
+                <option value="direct">Langsung</option>
+            </select>
+            <select id="language">
+                <option value="id">Bahasa Indonesia</option>
+                <option value="en">Bahasa Inggris</option>
+            </select>
+        </div>
+
+        <button id="generate-btn">Buat Balasan</button>
+
+        <div class="output">
+            <textarea id="generated-reply" readonly placeholder="Balasan email akan muncul di sini..."></textarea>
+            <button id="copy-btn">Salin Teks</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
