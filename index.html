@@ -3,33 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Email Reply Generator</title>
+    <title>Email Draft Improver</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <h1>Email Reply Generator</h1>
-        <p>Tempel email yang Anda terima di bawah ini, pilih tujuan balasan, dan biarkan kami membuat draf yang profesional untuk Anda.</p>
+        <h1>Email Draft Improver</h1>
+        <p>Paste your email draft below, choose the desired style, and let us refine it for you.</p>
 
-        <textarea id="original-email" placeholder="Tempel email di sini..."></textarea>
+        <textarea id="user-draft" placeholder="Paste your draft here..."></textarea>
 
         <div class="options">
-            <select id="reply-tone">
-                <option value="professional">Profesional</option>
-                <option value="friendly">Ramah</option>
-                <option value="direct">Langsung</option>
+            <select id="email-style">
+                <option value="professional">Professional</option>
+                <option value="friendly">Friendly</option>
+                <option value="concise">Concise</option>
             </select>
-            <select id="language">
-                <option value="id">Bahasa Indonesia</option>
-                <option value="en">Bahasa Inggris</option>
+            <select id="output-language">
+                <option value="id">Indonesian</option>
+                <option value="en">English</option>
             </select>
         </div>
 
-        <button id="generate-btn">Buat Balasan</button>
+        <button id="improve-btn">Improve Draft</button>
 
         <div class="output">
-            <textarea id="generated-reply" readonly placeholder="Balasan email akan muncul di sini..."></textarea>
-            <button id="copy-btn">Salin Teks</button>
+            <textarea id="improved-draft" readonly placeholder="The improved draft will appear here..."></textarea>
+            <button id="copy-btn">Copy Text</button>
         </div>
     </div>
 

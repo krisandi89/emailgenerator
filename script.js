@@ -1,68 +1,81 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const generateBtn = document.getElementById('generate-btn');
+    const improveBtn = document.getElementById('improve-btn');
     const copyBtn = document.getElementById('copy-btn');
-    const originalEmailEl = document.getElementById('original-email');
-    const generatedReplyEl = document.getElementById('generated-reply');
-    const replyToneEl = document.getElementById('reply-tone');
-    const languageEl = document.getElementById('language');
+    const userDraftEl = document.getElementById('user-draft');
+    const improvedDraftEl = document.getElementById('improved-draft');
+    const emailStyleEl = document.getElementById('email-style');
+    const outputLanguageEl = document.getElementById('output-language');
 
-    generateBtn.addEventListener('click', async () => {
-        const originalEmail = originalEmailEl.value;
-        const tone = replyToneEl.value;
-        const language = languageEl.value;
+    improveBtn.addEventListener('click', async () => {
+        const userDraft = userDraftEl.value;
+        const style = emailStyleEl.value;
+        const language = outputLanguageEl.value;
 
-        if (!originalEmail) {
-            alert('Silakan tempel email yang ingin Anda balas.');
+        if (!userDraft) {
+            alert('Please paste your draft to improve.');
             return;
         }
 
-        generatedReplyEl.value = 'Membuat balasan...';
+        improvedDraftEl.value = 'Improving your draft...';
 
-        // Simulasi panggilan API
-        // Di masa mendatang, ini akan diganti dengan panggilan API yang sebenarnya
+        // Simulate API call to improve the draft
         try {
-            const reply = await generateEmailReply(originalEmail, tone, language);
-            generatedReplyEl.value = reply;
+            const improvedText = await improveEmailDraft(userDraft, style, language);
+            improvedDraftEl.value = improvedText;
         } catch (error) {
-            generatedReplyEl.value = 'Gagal membuat balasan. Silakan coba lagi.';
+            improvedDraftEl.value = 'Failed to improve the draft. Please try again.';
             console.error(error);
         }
     });
 
     copyBtn.addEventListener('click', () => {
-        if (!generatedReplyEl.value || generatedReplyEl.value === 'Balasan email akan muncul di sini...') {
-            alert('Tidak ada teks untuk disalin.');
+        if (!improvedDraftEl.value || improvedDraftEl.value.includes('...')) {
+            alert('There is no text to copy.');
             return;
         }
-        generatedReplyEl.select();
+        improvedDraftEl.select();
         document.execCommand('copy');
-        alert('Teks berhasil disalin!');
+        alert('Text copied successfully!');
     });
 
-    // Fungsi placeholder untuk simulasi API
-    function generateEmailReply(email, tone, lang) {
+    // Placeholder function to simulate the API
+    function improveEmailDraft(draft, style, lang) {
         return new Promise(resolve => {
             setTimeout(() => {
-                let replyText = '';
+                const placeholder = "[IMPROVED_DRAFT_HERE]";
+                let template = '';
+
                 if (lang === 'id') {
-                    if (tone === 'professional') {
-                        replyText = `Dengan hormat,\n\nTerima kasih atas email Anda. Kami akan segera menindaklanjutinya.\n\nSalam,\n[Nama Anda]`;
-                    } else if (tone === 'friendly') {
-                        replyText = `Hai,\n\nMakasih ya emailnya. Nanti kami kabari lagi secepatnya.\n\nSalam hangat,\n[Nama Anda]`;
-                    } else {
-                        replyText = `Yth. Bapak/Ibu,\n\nEmail Anda sudah kami terima dan akan kami proses.\n\nTerima kasih,\n[Nama Anda]`;
+                    switch (style) {
+                        case 'professional':
+                            template = `Dengan hormat,\n\nMenindaklanjuti draf Anda, kami telah menyempurnakannya agar terdengar lebih profesional. Berikut adalah versi yang disarankan:\n\n${placeholder}\n\nSalam,\n[Nama Anda]`;
+                            break;
+                        case 'friendly':
+                            template = `Hai,\n\nIni draf kamu yang udah dibuat lebih ramah. Semoga suka ya!\n\n${placeholder}\n\nSalam hangat,\n[Nama Anda]`;
+                            break;
+                        case 'concise':
+                            template = `Berikut adalah draf Anda yang telah diringkas:\n\n${placeholder}\n\nTerima kasih,\n[Nama Anda]`;
+                            break;
                     }
                 } else { // English
-                    if (tone === 'professional') {
-                        replyText = `Dear Sir/Madam,\n\nThank you for your email. We will follow up on this matter shortly.\n\nSincerely,\n[Your Name]`;
-                    } else if (tone === 'friendly') {
-                        replyText = `Hi there,\n\nThanks for the email! We'll get back to you soon.\n\nBest regards,\n[Your Name]`;
-                    } else {
-                        replyText = `Hello,\n\nWe have received your email and will process it accordingly.\n\nThanks,\n[Your Name]`;
+                    switch (style) {
+                        case 'professional':
+                            template = `Dear Sir/Madam,\n\nFurther to your draft, we have refined it to sound more professional. Here is the suggested version:\n\n${placeholder}\n\nSincerely,\n[Your Name]`;
+                            break;
+                        case 'friendly':
+                            template = `Hi there,\n\nHere's your draft, but friendlier. Hope you like it!\n\n${placeholder}\n\nBest regards,\n[Your Name]`;
+                            break;
+                        case 'concise':
+                            template = `Here is your condensed draft:\n\n${placeholder}\n\nThanks,\n[Your Name]`;
+                            break;
                     }
                 }
-                resolve(replyText);
-            }, 1000); // Simulasi jeda jaringan
+
+                // In a real scenario, an API would return a completely new text.
+                // For this simulation, we just wrap the original draft in the template.
+                const improvedText = template.replace(placeholder, draft);
+                resolve(improvedText);
+            }, 1000); // Simulate network delay
         });
     }
 });
