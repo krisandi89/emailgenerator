@@ -38,43 +38,47 @@ document.addEventListener('DOMContentLoaded', () => {
         alert('Text copied successfully!');
     });
 
-    // Placeholder function to simulate the API
+    // Placeholder function to simulate a more intelligent API
     function improveEmailDraft(draft, style, lang) {
         return new Promise(resolve => {
             setTimeout(() => {
-                const placeholder = "[IMPROVED_DRAFT_HERE]";
-                let template = '';
+                // --- Smarter Simulation Logic ---
+                const normalizedDraft = draft.trim().toLowerCase();
+                let improvedText = '';
 
-                if (lang === 'id') {
-                    switch (style) {
-                        case 'professional':
-                            template = `Dengan hormat,\n\nMenindaklanjuti draf Anda, kami telah menyempurnakannya agar terdengar lebih profesional. Berikut adalah versi yang disarankan:\n\n${placeholder}\n\nSalam,\n[Nama Anda]`;
-                            break;
-                        case 'friendly':
-                            template = `Hai,\n\nIni draf kamu yang udah dibuat lebih ramah. Semoga suka ya!\n\n${placeholder}\n\nSalam hangat,\n[Nama Anda]`;
-                            break;
-                        case 'concise':
-                            template = `Berikut adalah draf Anda yang telah diringkas:\n\n${placeholder}\n\nTerima kasih,\n[Nama Anda]`;
-                            break;
+                // Example 1: Requesting a day off
+                const dayOffRequest = "hi, i need to ask for a day off next week. thanks";
+                if (normalizedDraft === dayOffRequest) {
+                    if (lang === 'en') {
+                        if (style === 'professional') {
+                            improvedText = "I am writing to formally request a day of leave for next week. Thank you for your consideration.";
+                        } else if (style === 'friendly') {
+                            improvedText = "Hey! Just wanted to ask if I could take a day off next week. Let me know if that works. Thanks a bunch!";
+                        } else { // concise
+                            improvedText = "I would like to request one day of leave for next week.";
+                        }
+                    } else { // Indonesian
+                        if (style === 'professional') {
+                            improvedText = "Dengan hormat, saya menulis surat ini untuk secara resmi mengajukan permohonan cuti selama satu hari pada minggu depan. Terima kasih atas pertimbangan Anda.";
+                        } else if (style === 'friendly') {
+                            improvedText = "Halo, saya mau tanya apakah saya bisa mengambil cuti sehari di minggu depan? Tolong kabari ya. Makasih banyak!";
+                        } else { // concise
+                            improvedText = "Saya ingin mengajukan permohonan cuti satu hari untuk minggu depan.";
+                        }
                     }
-                } else { // English
-                    switch (style) {
-                        case 'professional':
-                            template = `Dear Sir/Madam,\n\nFurther to your draft, we have refined it to sound more professional. Here is the suggested version:\n\n${placeholder}\n\nSincerely,\n[Your Name]`;
-                            break;
-                        case 'friendly':
-                            template = `Hi there,\n\nHere's your draft, but friendlier. Hope you like it!\n\n${placeholder}\n\nBest regards,\n[Your Name]`;
-                            break;
-                        case 'concise':
-                            template = `Here is your condensed draft:\n\n${placeholder}\n\nThanks,\n[Your Name]`;
-                            break;
-                    }
+                    resolve(improvedText);
+                    return;
                 }
 
-                // In a real scenario, an API would return a completely new text.
-                // For this simulation, we just wrap the original draft in the template.
-                const improvedText = template.replace(placeholder, draft);
-                resolve(improvedText);
+                // --- Fallback for any other text ---
+                const placeholder = "[IMPROVED_DRAFT_HERE]";
+                let template = `(This is a basic template. A real AI would provide a more refined version.)\n\n${placeholder}`;
+
+                if (lang === 'id') {
+                    template = `(Ini adalah templat dasar. AI yang sebenarnya akan memberikan versi yang lebih baik.)\n\n${placeholder}`;
+                }
+
+                resolve(template.replace(placeholder, draft));
             }, 1000); // Simulate network delay
         });
     }
