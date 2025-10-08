@@ -2,12 +2,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const improveBtn = document.getElementById('improve-btn');
     const copyBtn = document.getElementById('copy-btn');
     const userDraftEl = document.getElementById('user-draft');
+    const emailContextEl = document.getElementById('email-context');
     const improvedDraftEl = document.getElementById('improved-draft');
     const emailStyleEl = document.getElementById('email-style');
     const outputLanguageEl = document.getElementById('output-language');
 
     improveBtn.addEventListener('click', async () => {
         const userDraft = userDraftEl.value;
+        const emailContext = emailContextEl.value;
         const style = emailStyleEl.value;
         const language = outputLanguageEl.value;
 
@@ -20,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Simulate API call to improve the draft
         try {
-            const improvedText = await improveEmailDraft(userDraft, style, language);
+            const improvedText = await improveEmailDraft(userDraft, style, language, emailContext);
             improvedDraftEl.value = improvedText;
         } catch (error) {
             improvedDraftEl.value = 'Failed to improve the draft. Please try again.';
@@ -39,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Placeholder function to simulate a more intelligent API
-    function improveEmailDraft(draft, style, lang) {
+    function improveEmailDraft(draft, style, lang, context = '') {
         return new Promise(resolve => {
             setTimeout(() => {
                 // --- Smarter Simulation Logic ---
@@ -71,6 +73,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 // --- Fallback for any other text ---
+                let finalDraft = draft;
+                if (context) {
+                    const contextText = lang === 'id' ? 'Menanggapi email Anda:' : 'In response to your email:';
+                    finalDraft = `${contextText}\n>"${context.trim()}"\n\n${draft}`;
+                }
+
                 const placeholder = "[IMPROVED_DRAFT_HERE]";
                 let template = `(This is a basic template. A real AI would provide a more refined version.)\n\n${placeholder}`;
 
@@ -78,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     template = `(Ini adalah templat dasar. AI yang sebenarnya akan memberikan versi yang lebih baik.)\n\n${placeholder}`;
                 }
 
-                resolve(template.replace(placeholder, draft));
+                resolve(template.replace(placeholder, finalDraft));
             }, 1000); // Simulate network delay
         });
     }
