@@ -40,6 +40,11 @@ textarea {
     box-sizing: border-box;
 }
 
+#email-context {
+    margin-bottom: 1.5rem;
+    min-height: 100px;
+}
+
 .options {
     display: flex;
     justify-content: space-between;
